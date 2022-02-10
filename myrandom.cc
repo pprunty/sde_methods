@@ -23,7 +23,7 @@
 *               variates, before populating this vector with n Gaussian variates using
 *               std::generate.
 *   \param      n . The number of random variates generated.
-* 	\return     Default constructor never has a return type.
+*   \return     Default constructor never has a return type.
 *
 */
 Gaussian_RNs::Gaussian_RNs(int n) : N_{n} {
@@ -62,7 +62,7 @@ Gaussian_RNs::Gaussian_RNs(int n) : N_{n} {
 *               the randomness, or occurrence, of the Gaussian variates is somewhat maintained.
 *               The std::shared_ptr here is used for when two or more pieces of code need
 *               access to some data, but neither have exclusive ownership.
-* 	\return		data[++cur_idx] . The next unused Gaussian variate from data.
+*   \return		data[++cur_idx] . The next unused Gaussian variate from data.
 */
 double Gaussian_RNs::operator()() const {
 
@@ -80,7 +80,6 @@ double Gaussian_RNs::operator()() const {
 *               that is called so that the next call to operator()() returns the first
 *               element of the data again.
 *   \param      None.
-* 	\return     Void function.
 *
 */
 void Gaussian_RNs::reset_to_start() const {

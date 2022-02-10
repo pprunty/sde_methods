@@ -7,7 +7,7 @@
 /** \brief      This function takes a valarray of doubles, computes the expected value, or
 *               mean of that valarray and returns this value.
 *   \param      std::valarray<double>& vals . A reference to a valarray of doubles.
-* 	\return     avg . The mean of the values in the valarray.
+*   \return     avg . The mean of the values in the valarray.
 *
 */
 double expected_value(const std::valarray<double> &vals) {
@@ -26,7 +26,7 @@ double expected_value(const std::valarray<double> &vals) {
 /** \brief 		This function takes a valarray of doubles, computes the variance of that
 *				valarray, and returns this value.
 *   \param 		std::valarray<double>& vals . A reference to a valarray of doubles.
-* 	\return		var . The variance of the valarray. 
+*   \return		var . The variance of the valarray.
 *
 */
 double variance(const std::valarray<double> &vals) {
@@ -46,7 +46,7 @@ double variance(const std::valarray<double> &vals) {
 *   \param      std::valarray<double>& vals - A valarray of doubles
 *   \param      num_bins - The number of bins for the histogram
 *               bins.
-* 	\return     std::map<double, double> - A map with intervals first (on the lhs) and density second
+*   \return     std::map<double, double> - A map with intervals first (on the lhs) and density second
 *               (on the rhs).
 *
 */
@@ -77,7 +77,6 @@ std::map<double, double> create_density_hist(const std::valarray<double> &vals, 
 *               calculated in the create_density_hist() function
 *   \param      filename - A string which we will use
 *               as the name for a file we're going to create, open, and write to.
-* 	\return     void.
 *
 */
 void write_hist_to_file(std::map<double, double> &in, std::string filename) {
