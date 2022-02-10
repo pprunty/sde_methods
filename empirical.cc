@@ -10,13 +10,13 @@
 * 	\return     avg . The mean of the values in the valarray.
 *
 */
-double expected_value(const std::valarray<double>& vals) {
+double expected_value(const std::valarray<double> &vals) {
 
     try {
-        double avg = vals.sum()/vals.size();
+        double avg = vals.sum() / vals.size();
         return avg;
     }
-    catch (const std::exception& e) {
+    catch (const std::exception &e) {
         std::cerr << "A standard exception was caught, with message. Problem resizing array: '"
                   << e.what() << "'\n";
         exit(1);
@@ -29,9 +29,9 @@ double expected_value(const std::valarray<double>& vals) {
 * 	\return		var . The variance of the valarray. 
 *
 */
-double variance(const std::valarray<double>& vals) {
+double variance(const std::valarray<double> &vals) {
 
-	return expected_value(vals * vals) - std::pow(expected_value(vals), 2);
+    return expected_value(vals * vals) - std::pow(expected_value(vals), 2);
 
 }
 
@@ -50,24 +50,24 @@ double variance(const std::valarray<double>& vals) {
 *               (on the rhs).
 *
 */
-std::map<double, double> create_density_hist(const std::valarray<double>& vals, const int num_bins) {
+std::map<double, double> create_density_hist(const std::valarray<double> &vals, const int num_bins) {
 
-	double range = vals.max() - vals.min();			//< Find range
-	double bin_stepsize = range/num_bins;			//< Find width of each bin from (max-min)/number_of_bins
+    double range = vals.max() - vals.min();            //< Find range
+    double bin_stepsize = range / num_bins;            //< Find width of each bin from (max-min)/number_of_bins
 
-	std::map<double,double> hist;	
+    std::map<double, double> hist;
 
-	for (unsigned int i=0; i<vals.size(); ++i) {
-		double index = (static_cast<int>(vals[i]/bin_stepsize))*bin_stepsize;
+    for (unsigned int i = 0; i < vals.size(); ++i) {
+        double index = (static_cast<int>(vals[i] / bin_stepsize)) * bin_stepsize;
         //index = index/bin_stepsize; //<! Normalize data
-		hist[index]++;
-	}
-
-	for (auto& p : hist) {
-		p.second = p.second/vals.size();
+        hist[index]++;
     }
 
-	return hist;		//< Return density histogram to a std::map in main.
+    for (auto &p : hist) {
+        p.second = p.second / vals.size();
+    }
+
+    return hist;        //< Return density histogram to a std::map in main.
 }
 
 /** \brief      This function takes the density Histogram we made in the create_density_hist()
@@ -80,22 +80,21 @@ std::map<double, double> create_density_hist(const std::valarray<double>& vals, 
 * 	\return     void.
 *
 */
-void write_hist_to_file(std::map<double, double>& in, std::string filename) {
+void write_hist_to_file(std::map<double, double> &in, std::string filename) {
 
-	std::cout << "Writing results to file: " << filename << '\n';
-	
-	std::ofstream outfile;
-	outfile.open(filename);
+    std::cout << "Writing results to file: " << filename << '\n';
 
-	if (outfile.is_open()) {
-		for (auto const& p : in) {
-		outfile << p.first << '\t' << p.second << std::endl;
-		}
-	}
-	else {
-		std::cerr << "Error opening outfile." << '\n';
-		exit(1);
-	}
+    std::ofstream outfile;
+    outfile.open(filename);
+
+    if (outfile.is_open()) {
+        for (auto const &p : in) {
+            outfile << p.first << '\t' << p.second << std::endl;
+        }
+    } else {
+        std::cerr << "Error opening outfile." << '\n';
+        exit(1);
+    }
 
 }
 

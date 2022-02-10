@@ -1,5 +1,6 @@
 #ifndef SIMULATION_H_GV5LHPBM
 #define SIMULATION_H_GV5LHPBM
+
 #include <valarray>
 #include <sstream>
 #include <iostream>
@@ -16,34 +17,33 @@
  * The values are defaulted here. You don't need to modify for
  * the purpose of Assignment 3
  */
-struct Parameters
-{
-    double t0    = 0; 			//!< Initial Time (usually t=0)
-    double T     = 1.0; 		//!< Maturity.  End time. 1Y.
-    double S0    = 100; 	    //!< Initial Value/price
-    double sigma = 0.2; 	    //!< Volatility
-    double mu    = 0.05; 		//!< Drift
+struct Parameters {
+    double t0 = 0;            //!< Initial Time (usually t=0)
+    double T = 1.0;        //!< Maturity.  End time. 1Y.
+    double S0 = 100;        //!< Initial Value/price
+    double sigma = 0.2;        //!< Volatility
+    double mu = 0.05;        //!< Drift
 };
 
 /**
  * \brief Class to hold information related to a simulation
  */
-class Simulation
-{
+class Simulation {
 public:
-    Simulation (Parameters &params, int num_sims, int num_ts); 			//!< Constructor for Simulation Class
+    Simulation(Parameters &params, int num_sims, int num_ts);            //!< Constructor for Simulation Class
     virtual ~Simulation() {
-	    std::cout << "Simulation destructor" << std::endl;
+        std::cout << "Simulation destructor" << std::endl;
     };
 
-    std::valarray<double>& get_valarray_at_step(int n);
+    std::valarray<double> &get_valarray_at_step(int n);
+
     void insert_valarray_at_step(std::valarray<double> vals, int n);
 
     const int num_timesteps; //!< Number of time-steps for the simulation
 
 protected:
     Parameters params;
-    int N; 				//!< Number of simulated paths to generate
+    int N;              //!< Number of simulated paths to generate
     double delta_t;     //!< timestep. i.e. (T-t0)/num_of_timesteps
 
 private:
@@ -53,12 +53,12 @@ private:
 
 /* ---------------------------------- Euler-Maruyama method ----------------------------------- */
 
-class Euler_Maruyama : public Simulation
-{
+class Euler_Maruyama : public Simulation {
 public:
-    Euler_Maruyama (Parameters& p, int N, int ts, const Gaussian_RNs& rng);
+    Euler_Maruyama(Parameters &p, int N, int ts, const Gaussian_RNs &rng);
+
     ~Euler_Maruyama() {
-	std::cout << "Euler-Maruyama destructor" << std::endl;
+        std::cout << "Euler-Maruyama destructor" << std::endl;
     };
 };
 
@@ -68,12 +68,12 @@ public:
 /**
  * \brief a Class to create simulation paths using exact solution
  */
-class Exact_path : public Simulation
-{
+class Exact_path : public Simulation {
 public:
-    Exact_path (Parameters& p, int N, int ts, const Gaussian_RNs& rng);
-    ~Exact_path(){
-	std::cout << "Exact_path destructor" << std::endl;
+    Exact_path(Parameters &p, int N, int ts, const Gaussian_RNs &rng);
+
+    ~Exact_path() {
+        std::cout << "Exact_path destructor" << std::endl;
     };
 };
 
@@ -82,16 +82,15 @@ public:
 /**
  * \brief a Class to create simulation paths using Milstein scheme
  */
-class Milstein : public Simulation
-{
+class Milstein : public Simulation {
 public:
-    Milstein (Parameters& p, int N, int ts, const Gaussian_RNs& rng);
-    ~Milstein(){
-	std::cout << "Milstein destructor" << std::endl;
+    Milstein(Parameters &p, int N, int ts, const Gaussian_RNs &rng);
+
+    ~Milstein() {
+        std::cout << "Milstein destructor" << std::endl;
     };
 
 };
-
 
 
 #endif /* end of include guard: SIMULATION_H_GV5LHPBM */

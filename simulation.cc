@@ -1,12 +1,10 @@
 #include <valarray>
 #include <sstream>
 #include <iostream>
-#include <vector>
 #include <cmath>
 
 #include "myrandom.h"
 #include "simulation.h"
-#include "empirical.h"
 
 /** \brief 		Default constructor for class Simulation. This constructor first initializes
 *				the members of the class. The prices private member is a vector of valarrays.

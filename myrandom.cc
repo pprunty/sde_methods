@@ -28,29 +28,29 @@
 */
 Gaussian_RNs::Gaussian_RNs(int n) : N_{n} {
 
-	// Gaussian_RNs reply to being called for request of n Gaussian variates.  
-	std::cout << "Constructor for " << N_ << " Gaussian variates constructing." << '\n';
+    // Gaussian_RNs reply to being called for request of n Gaussian variates.
+    std::cout << "Constructor for " << N_ << " Gaussian variates constructing." << '\n';
 
-	/* Create a vector of Mersenne Twister state size. */
+    /* Create a vector of Mersenne Twister state size. */
     std::vector<unsigned int> random_data(std::mt19937_64::state_size);
     std::cout << "Creating vector with Mersenne Twister state-size ["
-    << std::mt19937_64::state_size << "]." << '\n';
+              << std::mt19937_64::state_size << "]." << '\n';
 
-	std::random_device rand;
+    std::random_device rand;
     std::generate(std::begin(random_data),
-    std::end(random_data), std::ref(rand));
+                  std::end(random_data), std::ref(rand));
     std::seed_seq seeds(std::begin(random_data),
-    std::end(random_data));
+                        std::end(random_data));
     std::mt19937_64 seeded_engine(seeds);
 
-	// Bind Normal probability density function to Mersenne Twister to generate Gaussian variates
-	auto gen = std::bind(std::normal_distribution<double>{0,1.0}, seeded_engine);
+    // Bind Normal probability density function to Mersenne Twister to generate Gaussian variates
+    auto gen = std::bind(std::normal_distribution<double>{0, 1.0}, seeded_engine);
 
-	// Resize vector to make space for n Gaussian variates.
-	data_.resize(N_);
+    // Resize vector to make space for n Gaussian variates.
+    data_.resize(N_);
 
-	// Populate data vector with Gaussian variates.
-	std::generate(std::begin(data_), std::end(data_), gen);
+    // Populate data vector with Gaussian variates.
+    std::generate(std::begin(data_), std::end(data_), gen);
 }
 
 
@@ -66,13 +66,13 @@ Gaussian_RNs::Gaussian_RNs(int n) : N_{n} {
 */
 double Gaussian_RNs::operator()() const {
 
-	// If all Gaussian variates have been called. The current index reaches the end of the vector. 
-	if ( *cur_idx_ == (N_) ) {
-		Gaussian_RNs::reset_to_start();     //< Reset cur_idx back to 0
+    // If all Gaussian variates have been called. The current index reaches the end of the vector.
+    if (*cur_idx_ == (N_)) {
+        Gaussian_RNs::reset_to_start();     //< Reset cur_idx back to 0
     }
-	
-	// Return the next unused Gaussian variate from data.
-	return data_[(*cur_idx_)++]; //< Postfix rather than prefix, returns data[0] then increments data++
+
+    // Return the next unused Gaussian variate from data.
+    return data_[(*cur_idx_)++]; //< Postfix rather than prefix, returns data[0] then increments data++
 
 }
 
@@ -84,10 +84,9 @@ double Gaussian_RNs::operator()() const {
 *
 */
 void Gaussian_RNs::reset_to_start() const {
-	// Set the current index variable back to 0.
-	*cur_idx_ = 0;
+    // Set the current index variable back to 0.
+    *cur_idx_ = 0;
 }
-
 
 
 /** \brief          This constructor generates N Gaussian variates using BOOST's lagged Fibonacci
@@ -116,8 +115,8 @@ BOOST_Fibonacci::BOOST_Fibonacci(int n) : Gaussian_RNs{n} {
 
     static boost::lagged_fibonacci607 rng(seeds);            //!< Seed lagged_fibonacci
     boost::normal_distribution<> std_norm(0, 1);             //!< Declare standard normal dist.
-    boost::variate_generator <boost::lagged_fibonacci607,    //!< Bind lagged_fibonacci with normal dist.
-    boost::normal_distribution<>> gen(rng, std_norm);
+    boost::variate_generator<boost::lagged_fibonacci607,    //!< Bind lagged_fibonacci with normal dist.
+            boost::normal_distribution<>> gen(rng, std_norm);
 
     std::generate(std::begin(data_), std::end(data_), gen);
 }

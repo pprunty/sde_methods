@@ -1,17 +1,19 @@
 #ifndef RANDOM_H_ZORMJADF
 #define RANDOM_H_ZORMJADF
-#include <vector>		//< std::vector
-#include <memory>		//< 
-#include <algorithm>	
+
+#include <vector>        //< std::vector
+#include <memory>        //<
+#include <algorithm>
 
 /**
  * \brief Class to generate and store normally distributed random numbers
  */
-class Gaussian_RNs
-{
+class Gaussian_RNs {
 public:
     Gaussian_RNs(int n);
-	double operator()() const;
+
+    double operator()() const;
+
     void reset_to_start() const;
 
 protected:
@@ -28,10 +30,10 @@ protected:
  *                 boost's lagged Fibonacci pseudo random number generator.
  *
  */
-class BOOST_Fibonacci : public Gaussian_RNs
-{
+class BOOST_Fibonacci : public Gaussian_RNs {
 public:
     BOOST_Fibonacci(int n);
+
     ~BOOST_Fibonacci() {};
 };
 
@@ -41,10 +43,10 @@ public:
  *                 Sobol quasi random numbers.
  *
  */
-class Sobol : public Gaussian_RNs
-{
+class Sobol : public Gaussian_RNs {
 public:
     Sobol(int n);
+
     ~Sobol() {};
 };
 
