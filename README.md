@@ -94,6 +94,44 @@ Note: I know I can add this to the Makefile as 'make plot' but I prefer to leave
 The following are the results for t = 1 and 10 timesteps:
 
 ```shell
+Constructor for 100000 Gaussian variates constructing.
+Creating vector with Mersenne Twister state-size [312].
+Exact_path constructor constructing.
+Exact_path destructor
+Simulation destructor
+Constructor for Milstein scheme constructing.
+Milstein destructor
+Simulation destructor
+Constructor for Euler-Maruyama scheme constructing.
+Euler-Maruyama destructor
+Simulation destructor
+
+Writing results to file: EX_time_1_timesteps_10.txt
+Writing results to file: M_time_1_timesteps_10.txt
+Writing results to file: EM_time_1_timesteps_10.txt
+
+Expected value Exact: 104.932
+Variance Exact: 433.293
+
+
+Expected value Milstein: 104.92
+Variance Exact Milstein: 428.817
+
+
+Expected value Euler-Maruyama: 104.92
+Variance Exact Euler-Maruyama: 428.353
+
+Writing results to file: EX_time_1_log_rets_at_timestep10.txt
+
+Expected Exact log returns: 0.0288267
+Variance Exact log returns: 0.038675
+
+Euler-Maruyama destructor
+Simulation destructor
+Milstein destructor
+Simulation destructor
+Exact_path destructor
+Simulation destructor
 
 ```
 
