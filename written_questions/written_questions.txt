@@ -1,0 +1,137 @@
+
+A. Sample histograms (4)
+
+----------------------------------------------------------------------------------------------
+
+Question:
+
+What is the empirical mean and variance for the exact scheme distributions at T=1 and
+T=2?
+
+----------------------------------------------------------------------------------------------
+
+Answer:
+
+The empirical mean and variance for the Exact scheme distribution at T = 1 for 10 timesteps is: 
+
+	Expected value Exact: 105.302
+	Variance Exact: 460.074
+
+
+
+##: As the number of time-steps increase, the schemes converge to the same solution.
+
+
+The empirical mean and variance for the Exact scheme distribution at T = 2 for 10 timesteps is:
+
+	Expected value Exact: 111.195
+	Variance Exact: 1071.82
+
+The empirical mean and variance for the Exact scheme distribution at T = 4 for 10 timesteps is:
+
+	Expected value Exact: 122.429
+	Variance Exact: 2645.14
+
+
+##: As the paths evolve over time; as time increases, the expected value, along with the variance 
+both increase.
+
+
+----------------------------------------------------------------------------------------------
+
+B. Access specifiers (4)
+
+----------------------------------------------------------------------------------------------
+
+Question:
+
+Simulation has public, protected and private access member variables. What is the difference
+in access between private and protected member variables? num timesteps has public access. 
+Could we accidentally modify this value from the general code? If not, why not. What would 
+the additional impact/constraint be because of this.
+
+----------------------------------------------------------------------------------------------
+
+Answer:
+
+Private members are declared within a class with the keyword 'private' followed by the colon ':'
+character. The private members of a class are usually identified by their variables name having
+an underscore at the beginning or end of the variable name, i.e _privatemember, or privatevariable_. 
+
+
+Private members are only accessible within the class in which they are declared. Private members
+cannot be accessed outside of the class. They are 'const' to the class. 
+
+Protected members, on the other hand, are declared with the keyword 'protected' followed by the 
+colon character ':'. The protected member of a class are accessible within the class in which 
+they are declared AND also accessible in the derived or subclasses.
+
+Protected members are used in the concept of inheritance. Just like private members, protected
+members cannot be accessed outside of the class or the class's derived or sub classes.
+
+In regards to num_timesteps, we could not accidentally modify this value because it is a const. 
+By declaring this variable const, if we attempt to modify it, the code will not compile, and the
+ compiler will warn us that we are attempting to modify a const variable. 
+
+----------------------------------------------------------------------------------------------
+
+C) Smart pointers (7)
+
+----------------------------------------------------------------------------------------------
+
+	- What is the major advantage of using smart pointers?
+	- Give a short description of the underlying difference between std::shared_ptr and
+          std::unique_ptr . To be more specific, what is the difference in memory/space 
+	  requirements between them. (Only a few short sentences needed).
+	- Why should you prefer to use std::make_shared or std::make_unique if possible? 
+	  (As compared to initialising using raw pointers).
+
+
+Smart pointers, as the name says, are pointers that are smart enough to manage themselveS. In
+C++, when memory is dynamically allocated, we allocate this memory on the heap manually. Thus,
+it is the programmers job to de-allocate this memory and take it off the heap. 
+
+The raw memory of the pointer is wrapped inside an object and gets destroyed as soon as this
+object goes out of scope. Before the object gets destroyed, it deletes/frees/removes the underlying
+raw memory. The deletion mechanisms are different for different kinds of smart pointers.
+
+
+When using unique_ptr, there can be at most one unique_ptr pointing at any one resource. When
+That unique_ptr is destroyed, the resource is automatically reclaimed. Because there can only be
+one one unique_ptr to any resource, any attempt to make a copy of a unique_ptr will cause a compile
+-time error. For example, this code is illegal:
+
+	unique_ptr<T> myPtr(new T);       // Okay
+	unique_ptr<T> myOtherPtr = myPtr; // Error: Can't copy unique_ptr
+
+However, unique_ptr can be moved using the new move semantics:
+
+	unique_ptr<T> myPtr(new T);                  // Okay
+	unique_ptr<T> myOtherPtr = std::move(myPtr); // Okay, resource now stored
+
+shared_ptr, on the other hand, allows for multiple pointers to point at a given resource. When the
+very last shared_ptr to a resource is destroyed, the resource will be deallocated. For example, 
+this code is perfectly legal:
+
+	shared_ptr<T> myPtr(new T);       // Okay
+	shared_ptr<T> myOtherPtr = myPtr; // Sure!  Now have two pointers to the resource.
+
+Internally, shared_ptr uses reference counting to track how many pointers refer to a resource, so
+you need to be careful not to introduce any reference cycles.
+
+In short:
+
+	1. You use unique_ptr when you want a single pointer to an object that will be reclaimed
+ 	when that single pointer is destroyed.
+	2. You use shared_ptr when you want multiple pointers to the same resource.
+
+
+It is better to use std::make_shared or std::make_unique rather than raw pointers because the 
+initialisation of a raw pointer preforms two heap-allocations (one for the control block (ref-
+counts)) and the object being managed, whereas using std::make_shared/
+std::make_unique preforms only one heap-allocation accounting for the space necessary for both
+the control block and the data. 
+
+
+
+
