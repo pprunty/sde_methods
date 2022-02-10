@@ -14,16 +14,16 @@
 #include "myrandom.h"
 #include "sobol.h"
 
-/**  \brief 	Default constructor for class Gaussian_RNs. This function accepts one
-*				integer parameter, namely n. This integer will set the number of Gaussian
-*				variates to generate. This function wil use the radom_device to seed
-*				the Mersenne Twister rng, and thus, produce a non-deterministic seeded 
-*				engine. The function then binds the Normal probability density function to
-*				this seeded_engine, resizes the private vector data to hold n Gaussian 
-*				variates, before populating this vector with n Gaussian variates using 
-*				std::generate.
-*   \param 		n . The number of random variates generated. 
-* 	\return		Default constructor never has a return type.
+/**  \brief     Default constructor for class Gaussian_RNs. This function accepts one
+*               integer parameter, namely n. This integer will set the number of Gaussian
+*               variates to generate. This function wil use the radom_device to seed
+*               the Mersenne Twister rng, and thus, produce a non-deterministic seeded
+*               engine. The function then binds the Normal probability density function to
+*               this seeded_engine, resizes the private vector data to hold n Gaussian
+*               variates, before populating this vector with n Gaussian variates using
+*               std::generate.
+*   \param      n . The number of random variates generated.
+* 	\return     Default constructor never has a return type.
 *
 */
 Gaussian_RNs::Gaussian_RNs(int n) : N_{n} {
@@ -54,14 +54,14 @@ Gaussian_RNs::Gaussian_RNs(int n) : N_{n} {
 }
 
 
-/**  \brief 	This function overloads the function call operator for this class. When
-*				an object of this type is called as a function object (functor), it should
-*				return the next unused Gaussian variate from data. If all the Gaussian 
-*				variates have been used, the elements of the vector data containing the 
-*				Gaussian variates is shuffled and the current index is set to zero. Thus,
-*				the randomness, or occurrence, of the Gaussian variates is somewhat maintained.
-*				The std::shared_ptr here is used for when two or more pieces of code need 
-*				access to some data, but neither have exclusive ownership.
+/**  \brief     This function overloads the function call operator for this class. When
+*               an object of this type is called as a function object (functor), it should
+*               return the next unused Gaussian variate from data. If all the Gaussian
+*               variates have been used, the elements of the vector data containing the
+*               Gaussian variates is shuffled and the current index is set to zero. Thus,
+*               the randomness, or occurrence, of the Gaussian variates is somewhat maintained.
+*               The std::shared_ptr here is used for when two or more pieces of code need
+*               access to some data, but neither have exclusive ownership.
 * 	\return		data[++cur_idx] . The next unused Gaussian variate from data.
 */
 double Gaussian_RNs::operator()() const {
@@ -76,11 +76,11 @@ double Gaussian_RNs::operator()() const {
 
 }
 
-/**  \brief 	This function will set the current index variable back to 0 everytime
-*				that is called so that the next call to operator()() returns the first
-*				element of the data again.
-*   \param 		None. 
-* 	\return		Void function.	
+/**  \brief     This function will set the current index variable back to 0 everytime
+*               that is called so that the next call to operator()() returns the first
+*               element of the data again.
+*   \param      None.
+* 	\return     Void function.
 *
 */
 void Gaussian_RNs::reset_to_start() const {
@@ -90,7 +90,7 @@ void Gaussian_RNs::reset_to_start() const {
 
 
 
-/** \brief		    This constructor generates N Gaussian variates using BOOST's lagged Fibonacci
+/** \brief          This constructor generates N Gaussian variates using BOOST's lagged Fibonacci
  *                  random number generator. The rng is benchmarked on boost.org as the fastest rng
  *                  to use when generating Gaussian variates. The rng is bound to BOOST's normal
  *                  distribution, which uses Marsaglia's Ziggurat algorithm; an efficient
@@ -122,7 +122,7 @@ BOOST_Fibonacci::BOOST_Fibonacci(int n) : Gaussian_RNs{n} {
     std::generate(std::begin(data_), std::end(data_), gen);
 }
 
-/** \brief		    This constructor generates N Gaussian variates using Sobol's quasi random number
+/** \brief          This constructor generates N Gaussian variates using Sobol's quasi random number
  *                  generator. The rng is produces quasi-random low-discrepancy sequences with efficent
  *                  variance.
  *  \param n        The number of random variates

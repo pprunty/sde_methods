@@ -51,7 +51,6 @@ int main(void)
     write_hist_to_file(hst1, outfile.str());
     outfile.str("");   	// Clear stringstream
 
-    //
     outfile << "M_time_" << params.T << "_timesteps_"<<  M->num_timesteps <<".txt";
     std::map<double, double> hst2 = create_density_hist(M->get_valarray_at_step(M->num_timesteps), NUM_BINS);
     write_hist_to_file(hst2, outfile.str());
@@ -61,7 +60,9 @@ int main(void)
     std::map<double, double> hst3 = create_density_hist(EM->get_valarray_at_step(EM->num_timesteps), NUM_BINS);
     write_hist_to_file(hst3, outfile.str());
     outfile.str("");   	// Clear stringstream
-	
+
+
+
     // Calculate (central) moments of empirical distributions
     std::cout << "\nExpected value Exact: " << expected_value(EX1->get_valarray_at_step(EX1->num_timesteps));
     std::cout << "\nVariance Exact: " << variance(EX1->get_valarray_at_step(EX1->num_timesteps));
@@ -75,21 +76,21 @@ int main(void)
     std::cout << "\nVariance Exact Euler-Maruyama: " << variance(EM->get_valarray_at_step(EM->num_timesteps));
     std::cout << "\n\n";
 	
-	// Create valarray of log returns at time step 0 for Exact scheme.
-   	std::valarray<double> log_rets1 {std::log(EX1->get_valarray_at_step(EX1->num_timesteps)/EX1->get_valarray_at_step(0))};
+    // Create valarray of log returns at time step 0 for Exact scheme.
+    std::valarray<double> log_rets1 {std::log(EX1->get_valarray_at_step(EX1->num_timesteps)/EX1->get_valarray_at_step(0))};
     
-	// Create a histogram of log returns for Exact scheme.
-	outfile << "EX_time_" << params.T << "_log_rets_at_timestep" << EX1->num_timesteps <<".txt";
+    // Create a histogram of log returns for Exact scheme.
+    outfile << "EX_time_" << params.T << "_log_rets_at_timestep" << EX1->num_timesteps <<".txt";
     std::map<double, double> hst1_1 = create_density_hist(log_rets1, NUM_BINS);
     write_hist_to_file(hst1_1, outfile.str());
     outfile.str("");   	// Clear stringstream
 
-	// Calculate and print out expected value and variance of the log-returns distribution.
+    // Calculate and print out expected value and variance of the log-returns distribution.
     std::cout << "\nExpected Exact log returns: " << expected_value(log_rets1);
     std::cout << "\nVariance Exact log returns: " << variance(log_rets1);
     std::cout << "\n\n";
 
-	/* No need to clean up memory since we used smart pointers! */
+    /* No need to clean up memory since we used smart pointers! */
 
     return 0;
 }
