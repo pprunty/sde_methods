@@ -17,12 +17,12 @@ stochastic differential equations (S.D.Es) are solved using Monte Carlo simulati
 
 Given a Stochastic Differential Equation (SDE) of the form:
 
-![Screenshot](graphics/Eq.2.png)
+![Screenshot](graphics/Eq.1.png)
 
 where W is a Wiener process. We can do an Itˆo-Taylor expansion of Eq. 1 to various orders in order to obtain a discrete
 approximation of the dynanmics. The first order expansion gives us the Euler-Maruyama Scheme:
 
-![Screenshot](graphics/Eq.1.png)
+![Screenshot](graphics/Eq.2.png)
 
 The Euler-Maruyama method has error O(∆t). If we add the next order term
 in the expansion we get the Milstein Scheme:
