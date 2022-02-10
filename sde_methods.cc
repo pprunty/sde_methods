@@ -29,19 +29,19 @@ int main(void)
     //params.T=2;  // Modify maturity etc.
 
     /** Create Simulation objects. **/
-	/* A unique_ptr is a smart pointer that owns and manages another object through a pointer
-	   and disposes of that object when the unique_ptr goes out of scope. */
+    /* A unique_ptr is a smart pointer that owns and manages another object through a pointer
+       and disposes of that object when the unique_ptr goes out of scope. */
 
-	// Exact scheme
-  	std::unique_ptr<Simulation> EX1 = std::make_unique<Exact_path>(Exact_path{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
+    // Exact scheme
+    std::unique_ptr<Simulation> EX1 = std::make_unique<Exact_path>(Exact_path{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
     ran_nums.reset_to_start(); 	// Reset the random number object for next scheme to use the same Gaussian variates.
 
-  	// Milstein scheme
-   	std::unique_ptr<Simulation> M = std::make_unique<Milstein>(Milstein{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
-	ran_nums.reset_to_start();	// Reset the random number object for next scheme to use the same Gaussian variates.
+    // Milstein scheme
+    std::unique_ptr<Simulation> M = std::make_unique<Milstein>(Milstein{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
+    ran_nums.reset_to_start();	// Reset the random number object for next scheme to use the same Gaussian variates.
 
-	// Euler-Maruyama scheme
-	std::unique_ptr<Simulation> EM = std::make_unique<Euler_Maruyama>(Euler_Maruyama{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
+    // Euler-Maruyama scheme
+    std::unique_ptr<Simulation> EM = std::make_unique<Euler_Maruyama>(Euler_Maruyama{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
 
 
 
