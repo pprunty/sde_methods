@@ -1,5 +1,4 @@
 # SDE Methods
-
 This program compares two discretisation schemes, Euler-Maruyama and Milstein, with the exact solution for GBM. The 
 stochastic differential equations (S.D.Es) are solved using Monte Carlo simulation.
 
@@ -49,6 +48,14 @@ However we can also integrate up Eq. 4 to obtain the exact scheme:
 
 This program compares Eq. 5, Eq. 6 and Eq. 7.
 
+The program also makes exercises good practical use of smart pointers, polymorphism, random number generation and 
+valarrays.
+
+In particular, a std::vector<std::valarray<double>> prices_ is used effectively to perform N * num_timestep simulations
+of the stock price as it moves through time. This is because the std::valarray allows for BLAS like operations such as (*)
+which multiplies all of its elements by a given number. This fits in nicely with our equation as we move through time.
+
+![Screenshot](graphics/monte_carlo_simulation.png)
 
 ## Requirements
 
