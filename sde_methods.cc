@@ -23,7 +23,7 @@ int main(void)
     Parameters params;
     std::stringstream outfile;
 
-	// Create object of random numbers.
+    // Create object of random numbers.
     const Gaussian_RNs ran_nums {NUM_SIMS * NUM_TIMESTEPS};
 
     //params.T=2;  // Modify maturity etc.
@@ -43,8 +43,6 @@ int main(void)
     // Euler-Maruyama scheme
     std::unique_ptr<Simulation> EM = std::make_unique<Euler_Maruyama>(Euler_Maruyama{params, NUM_SIMS, NUM_TIMESTEPS, ran_nums});
 
-
-
     // Create histogram of final prices from Exact process
     outfile << "EX_time_" << params.T << "_timesteps_"<< EX1->num_timesteps << ".txt";
     std::map<double, double> hst1 = create_density_hist(EX1->get_valarray_at_step(EX1->num_timesteps), NUM_BINS);
@@ -60,8 +58,6 @@ int main(void)
     std::map<double, double> hst3 = create_density_hist(EM->get_valarray_at_step(EM->num_timesteps), NUM_BINS);
     write_hist_to_file(hst3, outfile.str());
     outfile.str("");   	// Clear stringstream
-
-
 
     // Calculate (central) moments of empirical distributions
     std::cout << "\nExpected value Exact: " << expected_value(EX1->get_valarray_at_step(EX1->num_timesteps));
