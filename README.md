@@ -1,3 +1,5 @@
+Part of a college assignment...
+
 # SDE Methods
 This program compares two discretisation schemes, Euler-Maruyama and Milstein, with the exact solution for GBM. The 
 stochastic differential equations (S.D.Es) are solved using Monte Carlo simulation.
